@@ -7,6 +7,7 @@ node {
         //docker.image('python:2-alpine').inside {
         docker.image('python:3.9').inside {
             sh 'python -m py_compile sources/add2vals.py sources/calc.py'
+            stash(name: 'compiled-results', includes: 'sources/*.py*')
         }
     }
     stage('Test') {
@@ -20,9 +21,10 @@ node {
     }
     stage('Deploy') {
         //docker.image('cdrx/pyinstaller-linux:python2').inside {
-        docker.image('python:3.9').inside {
+        docker.image('python:3.9').inside('--user root') {
             sh 'pip install pyinstaller'
             sh 'pyinstaller --onefile sources/add2vals.py'
+            sleep time: 1, unit: 'MINUTES'
         }
         archiveArtifacts 'dist/add2vals'
     }
