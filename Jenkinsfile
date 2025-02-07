@@ -18,7 +18,8 @@ node {
         input message: 'Lanjutkan ke tahap Deploy?'
     }
     stage('Deploy') {
-        docker.image('cdrx/pyinstaller-linux:python2').inside {
+        //docker.image('cdrx/pyinstaller-linux:python2').inside {
+        docker.image('python:2-alpine').inside {
             sh 'pip install pyinstaller'
             sh 'pyinstaller --onefile sources/add2vals.py'
         }
