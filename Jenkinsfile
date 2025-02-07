@@ -4,7 +4,8 @@ node {
     }
     checkout scm
     stage('Build') {
-        docker.image('python:2-alpine').inside {
+        //docker.image('python:2-alpine').inside {
+        docker.image('python:3.9').inside {
             sh 'python -m py_compile sources/add2vals.py sources/calc.py'
         }
     }
@@ -19,7 +20,7 @@ node {
     }
     stage('Deploy') {
         //docker.image('cdrx/pyinstaller-linux:python2').inside {
-        docker.image('python:2-alpine').inside {
+        docker.image('python:3.9').inside {
             sh 'pip install pyinstaller'
             sh 'pyinstaller --onefile sources/add2vals.py'
         }
