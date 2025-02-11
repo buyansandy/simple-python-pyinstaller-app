@@ -46,6 +46,8 @@ node {
         sshagent(['ssh-to-ec2']) {
         //    sh 'ssh ubuntu@13.229.83.98'
         	sh 'scp -vvv dist/add2vals ubuntu@ec2-13-229-83-98.ap-southeast-1.compute.amazonaws.com:/home/ubuntu/'    
+			sh 'ssh -vvv ubuntu@ec2-13-229-83-98.ap-southeast-1.compute.amazonaws.com "chmod a+x /home/ubuntu/add2vals && /home/ubuntu/./add2vals 3 4"'
+            sleep time: 1, unit: 'MINUTES'
         }
     }
 }
