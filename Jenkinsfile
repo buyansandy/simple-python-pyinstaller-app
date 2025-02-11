@@ -44,7 +44,8 @@ node {
         }
         archiveArtifacts 'dist/add2vals'
         sshagent(['ssh-to-ec2']) {
-            sh 'ssh ubuntu@13.229.83.98'
+        //    sh 'ssh ubuntu@13.229.83.98'
+        	sh 'scp -vvv dist/add2vals ubuntu@ec2-13-229-83-98.ap-southeast-1.compute.amazonaws.com:/home/ubuntu/'    
         }
     }
 }
